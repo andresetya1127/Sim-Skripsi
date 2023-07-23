@@ -4,4 +4,4 @@ deployment:
     - export DEPLOYPATH=/home/stmb5393/public_html/digilib.stmiklombok.ac.id/
     - /bin/cp -R public/* $DEPLOYPATH
     - export ROOTPATH=/home/stmb5393/sim-skripsi
-    - /bin cp -R * !public $ROOTPATH
+    - /bin cp -R * $ROOTPATH
