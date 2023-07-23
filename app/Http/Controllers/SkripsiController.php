@@ -253,7 +253,7 @@ class SkripsiController extends Controller
         }
 
         if ($cover) {
-            File::delete('cover/' . $skripsi->cover);
+            File::delete('storage/cover/' . $skripsi->cover);
             $coverName = uniqid() . '_' . str_replace(' ', '', $cover->getClientOriginalName());
             $cover->move('storage/cover/', $coverName);
 
@@ -262,7 +262,7 @@ class SkripsiController extends Controller
         }
         if ($dokumen) {
 
-            File::delete('document/' . $skripsi->dokumen);
+            File::delete('storage/document/' . $skripsi->dokumen);
             $fileSkripsiName =  uniqid() . '_' . str_replace(' ', '', $dokumen->getClientOriginalName());
             $dokumen->move('storage/document/', $fileSkripsiName);
 
