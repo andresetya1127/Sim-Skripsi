@@ -165,7 +165,7 @@ class SkripsiController extends Controller
         $skripsi = new trx_skripsi();
 
         $validator = Validator::make($request->all(), [
-            'uploadImage' => 'required|file|mimes:png,jpg,jpeg|unique:trx_skripsis,cover',
+            'uploadImage' => 'required|file|mimes:png,jpg,jpeg,svg|unique:trx_skripsis,cover',
             'uploadFile' => 'required|file|mimes:pdf|unique:trx_skripsis,dokumen',
             'nim' => 'required|min:10|max:10',
             'nama' => 'required',
@@ -185,7 +185,7 @@ class SkripsiController extends Controller
         }
         if (!empty($cover)) {
             $coverName = uniqid() . '_' . str_replace(' ', '', $cover->getClientOriginalName());
-            $cover->store('cover/', $coverName);
+            $cover->move('storage/cover/', $coverName);
 
             $skripsi->cover = $coverName;
         } elseif ($cover == null) {
@@ -193,7 +193,7 @@ class SkripsiController extends Controller
         }
 
         $fileSkripsiName =  uniqid() . '_' . str_replace(' ', '', $dokumen->getClientOriginalName());
-        $dokumen->store('document/', $fileSkripsiName);
+        $dokumen->move('storage/document/', $fileSkripsiName);
         $skripsi->id_skripsi = Str::uuid()->toString();
         $skripsi->judul = $request->judul;
         $skripsi->dokumen = $fileSkripsiName;
@@ -236,7 +236,7 @@ class SkripsiController extends Controller
         $skripsi =  trx_skripsi::find($id);
 
         $validator = Validator::make($request->all(), [
-            'uploadImage' => 'file|mimes:png,jpg,jpeg|unique:trx_skripsis,cover',
+            'uploadImage' => 'file|mimes:png,jpg,jpeg,svg|unique:trx_skripsis,cover',
             'uploadFile' => 'file|mimes:pdf|unique:trx_skripsis,dokumen',
             'tema' => 'required',
             'judul' => 'required|min:10',
@@ -255,7 +255,7 @@ class SkripsiController extends Controller
         if ($cover) {
             File::delete('cover/' . $skripsi->cover);
             $coverName = uniqid() . '_' . str_replace(' ', '', $cover->getClientOriginalName());
-            $cover->store('cover/', $coverName);
+            $cover->move('storage/cover/', $coverName);
 
 
             $skripsi->cover = $coverName;
@@ -264,7 +264,7 @@ class SkripsiController extends Controller
 
             File::delete('document/' . $skripsi->dokumen);
             $fileSkripsiName =  uniqid() . '_' . str_replace(' ', '', $dokumen->getClientOriginalName());
-            $dokumen->store('document/', $fileSkripsiName);
+            $dokumen->move('storage/document/', $fileSkripsiName);
 
 
             $skripsi->dokumen = $fileSkripsiName;

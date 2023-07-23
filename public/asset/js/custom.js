@@ -365,7 +365,10 @@ $("#form-update-skripsi").submit(function (e) {
                         $.each(errors, function (field, messages) {
                             let fieldInput = $(`#${field}`);
                             $.each(messages, function (index, message) {
-                                if (field == "uploadFile") {
+                                if (
+                                    field == "uploadFile" ||
+                                    field == "uploadImage"
+                                ) {
                                     fieldInput
                                         .parents(".position-relative")
                                         .children(".message-error")
