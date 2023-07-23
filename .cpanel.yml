@@ -2,4 +2,4 @@
 deployment:
   tasks:
     - export DEPLOYPATH=/home/stmb5393/public_html/digilib.stmiklombok.ac.id/
-    - /bin/cp -R Sim-Skripsi/* $DEPLOYPATH
+    - /bin/cp -R * $DEPLOYPATH
