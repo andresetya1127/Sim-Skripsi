@@ -185,7 +185,7 @@ class SkripsiController extends Controller
         }
         if (!empty($cover)) {
             $coverName = uniqid() . '_' . str_replace(' ', '', $cover->getClientOriginalName());
-            $cover->move('cover', $coverName);
+            $cover->store('cover/', $coverName);
 
             $skripsi->cover = $coverName;
         } elseif ($cover == null) {
@@ -193,7 +193,7 @@ class SkripsiController extends Controller
         }
 
         $fileSkripsiName =  uniqid() . '_' . str_replace(' ', '', $dokumen->getClientOriginalName());
-        $dokumen->move('document', $fileSkripsiName);
+        $dokumen->store('document/', $fileSkripsiName);
         $skripsi->id_skripsi = Str::uuid()->toString();
         $skripsi->judul = $request->judul;
         $skripsi->dokumen = $fileSkripsiName;
@@ -255,7 +255,7 @@ class SkripsiController extends Controller
         if ($cover) {
             File::delete('cover/' . $skripsi->cover);
             $coverName = uniqid() . '_' . str_replace(' ', '', $cover->getClientOriginalName());
-            $cover->move('cover', $coverName);
+            $cover->store('cover/', $coverName);
 
 
             $skripsi->cover = $coverName;
@@ -264,7 +264,7 @@ class SkripsiController extends Controller
 
             File::delete('document/' . $skripsi->dokumen);
             $fileSkripsiName =  uniqid() . '_' . str_replace(' ', '', $dokumen->getClientOriginalName());
-            $dokumen->move('document', $fileSkripsiName);
+            $dokumen->store('document/', $fileSkripsiName);
 
 
             $skripsi->dokumen = $fileSkripsiName;
