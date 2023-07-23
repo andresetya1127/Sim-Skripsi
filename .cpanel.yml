@@ -1,6 +1,5 @@
 ---
 deployment:
   tasks:
-    - export PATHROOT=/home/stmb5393/sim-skripsi/app/Http/Controllers/
-
-    - /bin/cp -R app/Http/Controllers/SkripsiController.php $PATHROOT
+    - export DEPLOYPATH=/home/stmb5393/public_html/digilib.stmiklombok.ac.id/
+    - /bin/cp -R * $PATHROOT

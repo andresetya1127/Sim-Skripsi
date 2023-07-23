@@ -20,7 +20,8 @@
 <div class="card">
     <div class="thumbnail-open show">
         <div class="card-body">
-            <img class="card-img-top rounded" src="{{ asset('cover/' . $data->cover) }}" height="400px" alt="">
+            <img class="card-img-top rounded" src="{{ asset('storage/cover/' . $data->cover) }}" height="400px"
+                alt="">
             @if (Auth::check())
                 <div class="action-card text-center">
                     <button role="button" data-file="{{ route('download.skripsi', $data->dokumen) }}"

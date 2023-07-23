@@ -4,7 +4,7 @@
             <div class="card">
                 <div class="thumbnail-open" data-id="thumbnail-show">
                     <div class="card-body">
-                        <img class="card-img-top rounded" height="400px" src="{{ asset('cover/' . $dt->cover) }}"
+                        <img class="card-img-top rounded" height="400px" src="{{ asset('storage/cover/' . $dt->cover) }}"
                             alt="">
                         <div class="action-card text-center">
                             <h4 class="fw-bold text-capitalize">

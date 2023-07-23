@@ -28,7 +28,7 @@ class SkripsiController extends Controller
             if ($nextlimit >= $countSkripsi) {
                 $loadAction = 'disable';
             }
-            $data_skripsi = trx_skripsi::latest()->limit($nextlimit)->get();
+            $data_skripsi = trx_skripsi::limit($nextlimit)->latest()->get();
             $views =  view('template.component.card.card_hover', [
                 'page_title' => 'Data Skripsi',
                 'data' => $data_skripsi,
@@ -36,7 +36,7 @@ class SkripsiController extends Controller
             ])->render();
             return response()->json(['view' => $views, 'nextLimit' => $nextlimit, 'loadAction' => $loadAction]);
         }
-        $data_skripsi = trx_skripsi::latest()->limit(6)->get();
+        $data_skripsi = trx_skripsi::limit(12)->latest()->get();
 
         return view('pages.skripsi_index', [
             'page_title' => 'Data Skripsi',
@@ -286,8 +286,8 @@ class SkripsiController extends Controller
     public function deleteSkripsi($id)
     {
         $skripsi = trx_skripsi::find($id);
-        $pathFile = 'document/' . $skripsi->dokumen;
-        $pathCover = 'cover/' . $skripsi->cover;
+        $pathFile = 'storage/document/' . $skripsi->dokumen;
+        $pathCover = 'storage/cover/' . $skripsi->cover;
 
         if (!File::exists($pathFile)) {
             $skripsi->delete();
@@ -302,10 +302,10 @@ class SkripsiController extends Controller
 
     public function downloadFile($file)
     {
-        if (!File::exists('document/' . $file)) {
+        if (!File::exists('storage/document/' . $file)) {
             return abort('404');
         }
 
-        return response()->download('document/' . $file, $file);
+        return response()->download('storage/document/' . $file, $file);
     }
 }

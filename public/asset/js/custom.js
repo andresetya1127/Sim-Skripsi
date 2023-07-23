@@ -506,28 +506,28 @@ $("#table-buku").DataTable({
     //     {
     //         data: "DT_RowIndex",
     //         name: "DT_RowIndex",
-    //         orderable: false,
+    // orderable: false,
     //         seacrable: false,
     //     },
     //     {
     //         data: "nim",
     //         name: "NIM",
-    //         orderable: false,
+    // orderable: false,
     //     },
     //     {
     //         data: "judul",
     //         name: "Judul",
-    //         orderable: false,
+    // orderable: false,
     //     },
     //     {
     //         data: "tema",
     //         name: "Tema",
-    //         orderable: false,
+    // orderable: false,
     //     },
     //     {
     //         data: "tahun",
     //         name: "Tahun",
-    //         orderable: false,
+    // orderable: false,
     //     },
     //     {
     //         data: "aksi",
@@ -588,14 +588,14 @@ $("#table-buku").DataTable({
     // },
 });
 
-var limit = 6;
+var limit = 12;
 $("#loadMore").on("click", function () {
     var target = $(this).attr("data-target");
     $.ajax({
         url: target,
         type: "get",
         data: {
-            nextLimit: limit + 6,
+            nextLimit: limit + 12,
         },
         success: function (response) {
             if (response.view) {
