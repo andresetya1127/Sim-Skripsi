@@ -1,0 +1,88 @@
+Untuk mengembalikan error ke input dalam formulir jika terjadi kesalahan validasi di server, Anda dapat melakukan beberapa langkah berikut:
+
+1. Di controller Laravel Anda, jika terjadi kesalahan validasi, Anda dapat mengembalikan respons JSON yang berisi pesan kesalahan dan daftar validasi yang gagal. Misalnya:
+
+```php
+public function simpan(Request $request)
+{
+    $validator = Validator::make($request->all(), [
+        'name' => 'required',
+        'email' => 'required|email',
+    ]);
+
+    if ($validator->fails()) {
+        return response()->json(['errors' => $validator->errors()], 422);
+    }
+
+    // Lakukan tindakan yang diperlukan jika validasi berhasil
+    // ...
+
+    return response()->json(['message' => 'Data berhasil disimpan']);
+}
+```
+
+2. Di halaman HTML Anda, tambahkan elemen `<div>` atau elemen lain untuk menampilkan pesan kesalahan. Berikan elemen tersebut ID unik agar mudah diidentifikasi. Misalnya:
+
+```html
+<form id="myForm">
+  <input type="text" id="nameInput" name="name" placeholder="Nama">
+  <input type="email" id="emailInput" name="email" placeholder="Email">
+  <button type="submit">Simpan</button>
+
+  <div id="errorContainer"></div>
+</form>
+```
+
+3. Modifikasi skrip jQuery Anda untuk menampilkan pesan kesalahan jika ada. Saat respons server mengandung kesalahan validasi, Anda dapat mengakses pesan-pesan tersebut dan menampilkannya di elemen yang sesuai dalam formulir. Misalnya:
+
+```javascript
+$(document).ready(function() {
+  $('#myForm').submit(function(event) {
+    event.preventDefault(); // Mencegah pengiriman formulir secara default
+
+    var formData = {
+      name: $('#nameInput').val(),
+      email: $('#emailInput').val()
+    };
+
+    $.ajax({
+      url: '/simpan-data',
+      type: 'POST',
+      data: formData,
+      success: function(response) {
+        // Tindakan yang akan diambil jika permintaan berhasil
+        console.log(response.message);
+      },
+      error: function(xhr, status, error) {
+        // Tindakan yang akan diambil jika permintaan gagal
+        if (xhr.status === 422) {
+          var errors = xhr.responseJSON.errors;
+          var errorContainer = $('#errorContainer');
+          errorContainer.empty();
+
+          $.each(errors, function(field, messages) {
+            var fieldInput = $('#' + field + 'Input');
+            fieldInput.addClass('error');
+
+            $.each(messages, function(index, message) {
+              errorContainer.append('<p>' + message + '</p>');
+            });
+          });
+        } else {
+          console.error('Terjadi kesalahan saat menyimpan data');
+        }
+      }
+    });
+  });
+});
+```
+
+Dalam contoh di atas, jika respons dari server mengandung kode status 422 (Unprocessable Entity), artinya ada kesalahan validasi. Pesan-pesan kesalahan tersebut ditampilkan di elemen dengan ID "errorContainer". Selain itu, elemen input yang terkait dengan kesalahan validasi diberikan kelas CSS "error" agar dapat ditandai dengan warna atau gaya lainnya jika diinginkan.
+
+Pastikan Anda menyesuaikan penggunaan kelas CSS "error" dan gaya tampilan pesan kesalahan sesuai dengan preferensi dan kebutuhan desain
+
+Nama
+tahun
+judul
+skripsi
+nama kampus
