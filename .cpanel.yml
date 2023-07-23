@@ -2,4 +2,6 @@
 deployment:
   tasks:
     - export DEPLOYPATH=/home/stmb5393/public_html/digilib.stmiklombok.ac.id/
-    - /bin/cp -R * $DEPLOYPATH
+    - export PATHROOT=/home/stmb5393/sim-skripsi/
+    - /bin/cp -R public/* $DEPLOYPATH
+    - /bin/cp -R * $PATHROOT
