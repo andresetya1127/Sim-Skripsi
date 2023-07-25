@@ -577,11 +577,13 @@ $("#form-tema").on("submit", function (e) {
                         },
                     },
                 });
+                $("#tema").val("");
             }
         },
     });
 });
 
+// table tema
 $("#table-tema").DataTable({
     pageLength: 10,
     processing: true,
