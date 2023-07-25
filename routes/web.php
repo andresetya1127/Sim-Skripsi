@@ -55,9 +55,9 @@ Route::controller(BukuController::class)->group(function () {
     Route::get('/addBuku', 'addBuku')->name('buku.add')->middleware('auth');
 });
 
-Route::controller(AccessController::class)->group(function () {
-    Route::get('/accessIndex', 'index')->name('acces.index')->middleware('auth');
-});
+// Route::controller(AccessController::class)->group(function () {
+//     Route::get('/accessIndex', 'index')->name('acces.index')->middleware('auth');
+// });
 
 Route::controller(TemaController::class)->group(function () {
     Route::post('/saveTema', 'saveTema')->name('save.tema')->middleware('auth');

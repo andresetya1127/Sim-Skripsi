@@ -57,7 +57,7 @@
                         </li>
                     @endif
 
-                    @if (Auth::check())
+                    {{-- @if (Auth::check())
                         @if (Auth::user()->role == 'Akademik')
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('acces.index') }}">
@@ -65,7 +65,7 @@
                                 </a>
                             </li>
                         @endif
-                    @endif
+                    @endif --}}
                 </ul>
             </nav>
 
