@@ -58,7 +58,7 @@
                                 <tr>
                                     <td>
                                         <h5 class="text-muted text-center fw-bold">
-                                            <i class="far fa-folder-open fa-lg"></i>Tidak AdaData.
+                                            <i class="far fa-folder-open fa-lg"></i>Tidak Ada Data.
                                         </h5>
                                     </td>
                                 </tr>

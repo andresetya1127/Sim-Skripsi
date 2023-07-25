@@ -44,7 +44,7 @@
                             <select id="tema" name="tema" class="form-control select2">
                                 <option selected disabled> Pilih ... </option>
                                 @foreach ($tema as $tm)
-                                    <option value="{{ $tm }}"> Tahun {{ $tm }} </option>
+                                    <option value="{{ $tm }}"> {{ $tm }} </option>
                                 @endforeach
                             </select>
                             <div class="message-error"></div>
