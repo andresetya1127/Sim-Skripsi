@@ -13,7 +13,7 @@ class TemaController extends Controller
     public function saveTema(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'tema' => 'required',
+            'tema' => 'required|unique:data_temas,tema',
         ]);
         if ($validator->fails()) {
             return response()->json(['error' => $validator->errors()], 422);

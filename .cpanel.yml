@@ -7,7 +7,6 @@ deployment:
     - /bin/cp -R bootstrap $PATHROOT
     - /bin/cp -R config $PATHROOT
     - /bin/cp -R database $PATHROOT
-    - /bin/cp -R public $PATHROOT
     - /bin/cp -R resources $PATHROOT
     - /bin/cp -R routes $PATHROOT
     - /bin/cp -R tests $PATHROOT
