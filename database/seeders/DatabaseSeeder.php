@@ -17,7 +17,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\trx_skripsi::factory(30)->create();
+        \App\Models\trx_skripsi::factory(20)->create();
         // $uuid = Str::uuid()->toString();
         // User::create([
         //     'name' => 'andre_user',

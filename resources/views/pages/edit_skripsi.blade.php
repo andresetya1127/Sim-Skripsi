@@ -138,7 +138,7 @@
                         <div class="position-relative border">
                             <div class="input-file">
                                 <img class="img-upload-preview w-100 rounded"
-                                    src="{{ asset('cover/' . ($data->cover ? $data->cover : 'default_cover.jpg')) }}"
+                                    src="{{ asset('storage/cover/' . ($data->cover ? $data->cover : 'default_cover.jpg')) }}"
                                     id="img-tampil" height="400">
                                 <input type="file" class="form-control form-control-file" id="uploadImage"
                                     name="uploadImage" accept="image/*">

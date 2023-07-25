@@ -27,15 +27,7 @@
                             <i class="fas fa-home"></i> Home
                         </a>
                     </li>
-                    {{-- @if (Auth::check())
-                        @if (Auth::user()->role == 'Akademik')
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('dashboard') }}">
-                                    <i class="fas fa-tachometer-alt"></i> Dashboard
-                                </a>
-                            </li>
-                        @endif
-                    @endif --}}
+
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('skripsi.index') }}">
                             <i class="fas fa-trophy"></i> Skripsi
@@ -63,6 +55,16 @@
                                 </div>
                             @endif
                         </li>
+                    @endif
+
+                    @if (Auth::check())
+                        @if (Auth::user()->role == 'Akademik')
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('acces.index') }}">
+                                    <i class="fas fa-key"></i> Kontrol Akses
+                                </a>
+                            </li>
+                        @endif
                     @endif
                 </ul>
             </nav>

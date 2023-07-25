@@ -3,13 +3,14 @@
         <div class="card-header" style="background-image: url('{{ asset('asset/img/blogpost.jpg') }}')">
             <div class="profile-picture">
                 <div class="avatar avatar-xl">
-                    <img src="{{ asset('asset/img/chadengle.jpg') }}" alt="..." class="avatar-img rounded-circle">
+                    <img src="{{ asset('storage/users-avatar/' . Auth::user()->avatar) }}" alt="..."
+                        class="avatar-img rounded-circle">
                 </div>
             </div>
         </div>
         <div class="card-body">
             <div class="user-profile text-center">
-                <div class="name ">{{ $data->nim }}</div>
+                <div class="name ">{{ $data->nama }}</div>
                 <div class="job"> {{ $data->program_studi == '55201' ? 'Teknik Informatika' : 'Sistem Informasi' }}
                 </div>
             </div>

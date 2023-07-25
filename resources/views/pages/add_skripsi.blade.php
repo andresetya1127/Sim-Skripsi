@@ -122,7 +122,7 @@
                         <div class="position-relative">
                             <div class="input-file">
                                 <img class="img-upload-preview w-100 rounded"
-                                    src="{{ asset('storage/cover/default_cover.jpg') }}" id="img-tampil" height="400">
+                                    src="{{ asset('storage/cover/default_cover.png') }}" id="img-tampil" height="400">
                                 <input type="file" class="form-control form-control-file" id="uploadImage"
                                     name="uploadImage" accept="image/*">
 

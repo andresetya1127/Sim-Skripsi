@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AccessController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BukuController;
 use App\Http\Controllers\DashboardController;
@@ -51,6 +52,10 @@ Route::controller(AuthController::class)->group(function () {
 Route::controller(BukuController::class)->group(function () {
     Route::get('/manageBuku', 'manageBuku')->name('buku.manage')->middleware('auth');
     Route::get('/addBuku', 'addBuku')->name('buku.add')->middleware('auth');
+});
+
+Route::controller(AccessController::class)->group(function () {
+    Route::get('/accessIndex', 'index')->name('acces.index')->middleware('auth');
 });
 
 Route::controller(SkripsiController::class)->group(function () {
