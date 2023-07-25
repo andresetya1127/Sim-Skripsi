@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BukuController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\SkripsiController;
+use App\Http\Controllers\TemaController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 
@@ -56,6 +57,12 @@ Route::controller(BukuController::class)->group(function () {
 
 Route::controller(AccessController::class)->group(function () {
     Route::get('/accessIndex', 'index')->name('acces.index')->middleware('auth');
+});
+
+Route::controller(TemaController::class)->group(function () {
+    Route::post('/saveTema', 'saveTema')->name('save.tema')->middleware('auth');
+    Route::get('/tableTema', 'tableTema')->name('table.tema')->middleware('auth');
+    Route::get('/deleteTema/{id}', 'deleteTema')->name('delete.tema')->middleware('auth');
 });
 
 Route::controller(SkripsiController::class)->group(function () {

@@ -2,6 +2,7 @@
 deployment:
   tasks:
     - export PATHROOT=/home/stmb5393/sim-skripsi/
+    - export ASSET=/home/stmb5393/public_html/digilib.stmiklombok.ac.id/asset/js/
     - /bin/cp -R app $PATHROOT
     - /bin/cp -R bootstrap $PATHROOT
     - /bin/cp -R config $PATHROOT
@@ -11,3 +12,4 @@ deployment:
     - /bin/cp -R routes $PATHROOT
     - /bin/cp -R tests $PATHROOT
     - /bin/cp -R vendor $PATHROOT
+    - /bin/cp -R public/asset/js/custom.js $ASSET

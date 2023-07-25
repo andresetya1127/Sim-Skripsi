@@ -50,12 +50,15 @@
         @include('template.component.card.card_hover')
     </div>
 
-    <div class="row">
-        <div class="col-12 text-center">
-            <button data-target="{{ route('load.index') }}" id="loadMore" class="btn btn-outline-primary">
-                Selanjutnya <i class="fas fa-caret-down"></i></button>
+
+    @if (count($data) > 12)
+        <div class="row">
+            <div class="col-12 text-center">
+                <button data-target="{{ route('load.index') }}" id="loadMore" class="btn btn-outline-primary">
+                    Selanjutnya <i class="fas fa-caret-down"></i></button>
+            </div>
         </div>
-    </div>
+    @endif
 
     {{-- Filter --}}
     <div class="quick-sidebar">

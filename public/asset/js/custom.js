@@ -1,4 +1,6 @@
 var selectOpt = $(".select2");
+const csrf = $('meta[name="csrf-token"]').attr("content");
+
 $.each(selectOpt, function (index) {
     $(".select2").select2({
         theme: "bootstrap",
@@ -223,7 +225,6 @@ $("input,select,textarea,.note-editor").on("change input", function () {
 
 $("#form-tambah-skripsi").submit(function (e) {
     e.preventDefault();
-    const csrf = $('meta[name="csrf-token"]').attr("content");
     let form = new FormData(this);
     const url = $(this).attr("data-url");
     form.append("refrensi", $("#refrensi").summernote("code"));
@@ -494,100 +495,6 @@ $("#table-skripsi").DataTable({
     },
 });
 
-// table skripsi
-$("#table-buku").DataTable({
-    pageLength: 10,
-    // processing: true,
-    // serverside: true,
-    info: false,
-    responsive: true,
-    // ajax: "tableSkripsi",
-    // columns: [
-    //     {
-    //         data: "DT_RowIndex",
-    //         name: "DT_RowIndex",
-    // orderable: false,
-    //         seacrable: false,
-    //     },
-    //     {
-    //         data: "nim",
-    //         name: "NIM",
-    // orderable: false,
-    //     },
-    //     {
-    //         data: "judul",
-    //         name: "Judul",
-    // orderable: false,
-    //     },
-    //     {
-    //         data: "tema",
-    //         name: "Tema",
-    // orderable: false,
-    //     },
-    //     {
-    //         data: "tahun",
-    //         name: "Tahun",
-    // orderable: false,
-    //     },
-    //     {
-    //         data: "aksi",
-    //         name: "Aksi",
-    //         orderable: false,
-    //     },
-    // ],
-    // // menghapus data didalam data tabel
-    // createdRow: function (row, data, dataIndex) {
-    //     $(row)
-    //         .find("#dataDelete")
-    //         .click(function () {
-    //             let urlTarget = $(this).attr("data-target");
-    //             swal({
-    //                 title: "Hapus Skripsi",
-    //                 text: "Apakah Anda Yakin!",
-    //                 type: "warning",
-    //                 buttons: {
-    //                     confirm: {
-    //                         text: "Ya",
-    //                         className: "btn btn-success",
-    //                     },
-    //                     cancel: {
-    //                         visible: true,
-    //                         className: "btn btn-danger",
-    //                     },
-    //                 },
-    //             }).then((simpan) => {
-    //                 if (simpan) {
-    //                     $.ajax({
-    //                         url: urlTarget,
-    //                         type: "GET",
-    //                         success: function (response) {
-    //                             if (response.success) {
-    //                                 swal({
-    //                                     text: response.success,
-    //                                     type: "success",
-    //                                     icon: "success",
-    //                                 });
-    //                                 reloadTblSkripsi();
-    //                             }
-    //                         },
-    //                         error: function (xhr, status, error) {
-    //                             if (response.status === 422) {
-    //                                 swal({
-    //                                     text: "Maaf Ada kesalahan !",
-    //                                     type: "danger",
-    //                                     icon: "danger",
-    //                                 });
-    //                             }
-    //                         },
-    //                     });
-    //                 } else {
-    //                     swal.close();
-    //                 }
-    //             });
-    //         });
-    // },
-});
-
 var limit = 12;
 $("#loadMore").on("click", function () {
     var target = $(this).attr("data-target");
@@ -628,3 +535,181 @@ setInterval(function () {
         $("#screen-loading").removeClass("loading-search").addClass("d-none");
     }
 }, 3000);
+
+$("#form-tema").on("submit", function (e) {
+    e.preventDefault();
+    var target = $(this).attr("data-target");
+    var dataForm = $(this).serialize();
+    $.ajax({
+        url: target,
+        type: "POST",
+        data: dataForm,
+        headers: {
+            "X-CSRF-TOKEN": csrf,
+        },
+        success: function (response) {
+            swal({
+                title: "Berhasil!",
+                text: response.success,
+                type: "success",
+                icon: "success",
+                buttons: {
+                    confirm: {
+                        text: "Ok!",
+                        className: "btn btn-success",
+                    },
+                },
+            });
+            reloadTblTema();
+            $("#tema").val("");
+        },
+        error: function (xhr) {
+            if (xhr.status == 422) {
+                swal({
+                    title: "Gagal!",
+                    text: xhr.responseJSON.error.tema[0],
+                    type: "error",
+                    icon: "error",
+                    buttons: {
+                        confirm: {
+                            text: "Ok!",
+                            className: "btn btn-danger",
+                        },
+                    },
+                });
+            }
+        },
+    });
+});
+
+$("#table-tema").DataTable({
+    pageLength: 10,
+    processing: true,
+    serverside: true,
+    lengthChange: false,
+    info: false,
+    responsive: true,
+    ajax: "tableTema",
+    columns: [
+        {
+            data: "DT_RowIndex",
+            name: "DT_RowIndex",
+            orderable: false,
+            seacrable: false,
+        },
+        {
+            data: "tema",
+            name: "tema",
+            orderable: false,
+        },
+        {
+            data: "aksi",
+            name: "Aksi",
+            orderable: false,
+        },
+    ],
+    // menghapus data didalam data tabel
+    createdRow: function (row, data, dataIndex) {
+        $(row)
+            .find("#DeleteTema")
+            .click(function () {
+                let urlTarget = $(this).attr("data-target");
+                swal({
+                    title: "Hapus Tema",
+                    text: "Apakah Anda Yakin!",
+                    type: "warning",
+                    buttons: {
+                        confirm: {
+                            text: "Ya",
+                            className: "btn btn-success",
+                        },
+                        cancel: {
+                            visible: true,
+                            className: "btn btn-danger",
+                        },
+                    },
+                }).then((simpan) => {
+                    if (simpan) {
+                        $.ajax({
+                            url: urlTarget,
+                            type: "GET",
+                            success: function (response) {
+                                if (response.success) {
+                                    swal({
+                                        text: response.success,
+                                        type: "success",
+                                        icon: "success",
+                                    });
+                                    reloadTblTema();
+                                }
+                            },
+                            error: function (xhr, status, error) {
+                                if (xhr.status === 404) {
+                                    swal({
+                                        text: xhr.responseJSON.error,
+                                        type: "danger",
+                                        icon: "warning",
+                                    });
+                                }
+                            },
+                        });
+                    } else {
+                        swal.close();
+                    }
+                });
+            });
+    },
+});
+
+function reloadTblTema() {
+    let tabelSkripsi = $("#table-tema").DataTable();
+    tabelSkripsi.ajax.reload();
+}
+
+// Make the DIV element draggable:
+var element = document.querySelector("#modal");
+dragElement(element);
+
+function dragElement(elmnt) {
+    var pos1 = 0,
+        pos2 = 0,
+        pos3 = 0,
+        pos4 = 0;
+    if (elmnt.querySelector(".modal-header")) {
+        // if present, the header is where you move the DIV from:
+        elmnt.querySelector(".modal-header").onmousedown = dragMouseDown;
+    } else {
+        // otherwise, move the DIV from anywhere inside the DIV:
+        elmnt.onmousedown = dragMouseDown;
+    }
+
+    function dragMouseDown(e) {
+        e = e || window.event;
+        e.preventDefault();
+        // get the mouse cursor position at startup:
+        pos3 = e.clientX;
+        pos4 = e.clientY;
+        document.onmouseup = closeDragElement;
+        // call a function whenever the cursor moves:
+        document.onmousemove = elementDrag;
+    }
+
+    function elementDrag(e) {
+        e = e || window.event;
+        e.preventDefault();
+        // calculate the new cursor position:
+        pos1 = pos3 - e.clientX;
+        pos2 = pos4 - e.clientY;
+        pos3 = e.clientX;
+        pos4 = e.clientY;
+        // set the element's new position:
+        elmnt.style.top = elmnt.offsetTop - pos2 + "px";
+        elmnt.style.left = elmnt.offsetLeft - pos1 + "px";
+    }
+
+    function closeDragElement() {
+        // stop moving when mouse button is released:
+        document.onmouseup = null;
+        document.onmousemove = null;
+    }
+}
